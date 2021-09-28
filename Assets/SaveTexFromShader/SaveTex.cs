@@ -7,10 +7,12 @@ using UnityEngine;
 public class SaveTex : MonoBehaviour
 {
     public Shader shader;
+    public Material mat;
     public string foldername;
     public string pngName;
     public Texture tex;
     public bool enableSave = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,8 @@ public class SaveTex : MonoBehaviour
         {
             enableSave = false;
             Debug.Log("保存");
-            SaveRenderTextureToPNG(tex, shader, Application.dataPath+"/"+foldername, pngName);
+            //SaveRenderTextureToPNG(tex, shader, Application.dataPath+"/"+foldername, pngName);
+            SaveRenderTextureToPNG(tex, mat, Application.dataPath + "/" + foldername, pngName);
         }
         
     }
@@ -43,6 +46,22 @@ public class SaveTex : MonoBehaviour
         return ret;
 
     }
+    
+    public bool SaveRenderTextureToPNG(Texture inputTex,Material outputMaterial, string contents, string pngName)
+
+    {
+        RenderTexture temp = RenderTexture.GetTemporary(inputTex.width, inputTex.height, 0, RenderTextureFormat.ARGB32);
+
+        //Material mat = new Material(outputShader);
+
+        Graphics.Blit(inputTex, temp, outputMaterial);
+        bool ret = SaveRenderTextureToPNG(temp, contents,pngName);
+
+        RenderTexture.ReleaseTemporary(temp);
+
+        return ret;
+
+    }
 
 //将RenderTexture保存成一张png图片
 
@@ -54,10 +73,12 @@ public class SaveTex : MonoBehaviour
         RenderTexture.active = rt;
 
         Texture2D png = new Texture2D(rt.width, rt.height, TextureFormat.ARGB32, false);
+        //Texture2D exr = new Texture2D(rt.width, rt.height, TextureFormat.HDR, false);
 
         png.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
 
-        byte[] bytes = png.EncodeToPNG();
+        //byte[] bytes = png.EncodeToPNG();
+        byte[] bytes = png.EncodeToEXR();
 
         if (!Directory.Exists(contents))
 

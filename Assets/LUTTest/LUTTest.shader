@@ -1,5 +1,12 @@
 ﻿Shader "FXT/LUTTest"
 {
+    Properties
+    {
+        _BaseMap("MainTex",2D)="white"{}
+    }
+    
+    
+    
     HLSLINCLUDE
 
         #pragma multi_compile_local _ _TONEMAP_FXT_ACES _TONEMAP_FXT_NEUTRAL
@@ -30,7 +37,8 @@
         TEXTURE2D(_CurveRed);
         TEXTURE2D(_CurveGreen);
         TEXTURE2D(_CurveBlue);
-
+        TEXTURE2D(_BaseMap);    SAMPLER(sampler_BaseMap);
+    
         TEXTURE2D(_CurveHueVsHue);
         TEXTURE2D(_CurveHueVsSat);
         TEXTURE2D(_CurveSatVsSat);
@@ -46,7 +54,8 @@
         float3 ColorGrade(float3 colorLutSpace)
         {
             // Switch back to linear
-            float3 colorLinear = LogCToLinear(colorLutSpace);
+            //float3 colorLinear = LogCToLinear(colorLutSpace);
+            float3 colorLinear =colorLutSpace;
 
             // White balance in LMS space
             float3 colorLMS = LinearToLMS(colorLinear);
@@ -184,8 +193,8 @@
             // We use Alexa LogC (El 1000) to store the LUT as it provides a good enough range
             // (~58.85666) and is good enough to be stored in fp16 without losing precision in the
             // darks
-            float3 colorLutSpace = GetLutStripValue(input.uv, _Lut_Params);
-            //float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024,0.5/32,32/31));
+            //float3 colorLutSpace = GetLutStripValue(input.uv, _Lut_Params);
+            float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024,0.5/32,32/31));
             float3 colorLinear = LogCToLinear(colorLutSpace);
             // Color grade & tonemap
             float3 gradedColor = ColorGrade(colorLutSpace);
@@ -193,7 +202,12 @@
             float3 TonemapColor = Tonemap(colorLinear);
             
             //float mr = EvaluateCurve(_CurveMaster, colorLinear.r);
-
+            float3 LUTTEX = SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.uv).rgb;
+            //float3 LUTTEX_log = LinearToLogC(LUTTEX);
+            float3 gradedColorTest = ColorGrade(LUTTEX);
+            gradedColorTest = Tonemap(gradedColorTest);
+            //return half4(gradedColorTest,1.0);
+            return half4(LUTTEX.rgb,1.0);
             //float3 colortest = float3(0.5,0.5,1);
             
             //colortest = NeutralTonemap(colorLinear);
@@ -210,6 +224,7 @@
             //      return half4(0,0,1,1);
             // }
             // #endif
+            
             
             return float4(gradedColor, 1.0);
         }
