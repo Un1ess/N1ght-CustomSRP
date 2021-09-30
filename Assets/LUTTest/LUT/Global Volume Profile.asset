@@ -34,10 +34,10 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.6849315
-          value: 0.0808081
-          inSlope: -0.20738618
-          outSlope: -0.20738618
+          time: 0.25311205
+          value: 0.40909094
+          inSlope: -0.07554852
+          outSlope: -0.07554852
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
 --- !u!114 &-1025511061531230078
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -231,19 +231,19 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   shadows:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.754717, g: 0.48771805, b: 0.48771805, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   highlights:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.6886792, g: 0.55549127, b: 0.55549127, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   balance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
     min: -100
     max: 100
@@ -266,6 +266,11 @@ MonoBehaviour:
   - {fileID: 8673642481481949805}
   - {fileID: 3037226098247120165}
   - {fileID: 4869201848126178799}
+  - {fileID: -1025511061531230078}
+  - {fileID: 9065170190951443021}
+  - {fileID: 7550563640793315573}
+  - {fileID: 8578012254886601393}
+  - {fileID: 5878269167847600496}
 --- !u!114 &273442564721887387
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -278,30 +283,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.67
   contrast:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -22
     min: -100
     max: 100
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.6226415, g: 0.50809896, b: 0.50809896, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   hueShift:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 38
     min: -180
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: -50
+    m_Value: -18.2
     min: -100
     max: 100
 --- !u!114 &3037226098247120165
@@ -341,14 +346,14 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   shadows:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.8015311, y: 0.8921899, z: 1, w: 0}
   midtones:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9855883, z: 0.95718056, w: 0}
   highlights:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.9087537, y: 1, z: 0.95021725, w: 0}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -365,6 +370,72 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
     min: 0
+--- !u!114 &5878269167847600496
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.8919732, y: 1, z: 0.9357121, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.81393903, y: 1, z: 0.80139816, w: 0}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.8851827, y: 0.8444246, z: 1, w: 0}
+--- !u!114 &7550563640793315573
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 0
+  m_AdvancedMode: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+--- !u!114 &8578012254886601393
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb60a22f311433c4c962b888d1393f88, type: 3}
+  m_Name: PaniniProjection
+  m_EditorClassIdentifier: 
+  active: 0
+  m_AdvancedMode: 0
+  distance:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  cropToFit:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
 --- !u!114 &8673642481481949805
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -377,15 +448,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 59
     min: -100
     max: 100
   tint:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 20
     min: -100
     max: 100
+--- !u!114 &9065170190951443021
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
+  m_Name: ChannelMixer
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  redOutRedIn:
+    m_OverrideState: 1
+    m_Value: 96
+    min: -200
+    max: 200
+  redOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 37
+    min: -200
+    max: 200
+  redOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -36
+    min: -200
+    max: 200
+  greenOutRedIn:
+    m_OverrideState: 1
+    m_Value: 11
+    min: -200
+    max: 200
+  greenOutGreenIn:
+    m_OverrideState: 1
+    m_Value: -25
+    min: -200
+    max: 200
+  greenOutBlueIn:
+    m_OverrideState: 1
+    m_Value: 7
+    min: -200
+    max: 200
+  blueOutRedIn:
+    m_OverrideState: 1
+    m_Value: 26
+    min: -200
+    max: 200
+  blueOutGreenIn:
+    m_OverrideState: 1
+    m_Value: -72
+    min: -200
+    max: 200
+  blueOutBlueIn:
+    m_OverrideState: 1
+    m_Value: 32
+    min: -200
+    max: 200

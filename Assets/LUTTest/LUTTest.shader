@@ -203,7 +203,7 @@
             
             //float mr = EvaluateCurve(_CurveMaster, colorLinear.r);
             float3 LUTTEX = SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.uv).rgb;
-            //float3 LUTTEX_log = LinearToLogC(LUTTEX);
+            
             float3 gradedColorTest = ColorGrade(LUTTEX);
             gradedColorTest = Tonemap(gradedColorTest);
             gradedColorTest = linear_to_sRGB(gradedColorTest);
