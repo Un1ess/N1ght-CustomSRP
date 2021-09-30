@@ -37,7 +37,7 @@
         TEXTURE2D(_CurveRed);
         TEXTURE2D(_CurveGreen);
         TEXTURE2D(_CurveBlue);
-        TEXTURE2D(_BaseMap);    SAMPLER(sampler_BaseMap);
+        TEXTURE2D_HALF(_BaseMap);    SAMPLER(sampler_BaseMap);
     
         TEXTURE2D(_CurveHueVsHue);
         TEXTURE2D(_CurveHueVsSat);
@@ -206,8 +206,16 @@
             //float3 LUTTEX_log = LinearToLogC(LUTTEX);
             float3 gradedColorTest = ColorGrade(LUTTEX);
             gradedColorTest = Tonemap(gradedColorTest);
-            //return half4(gradedColorTest,1.0);
-            return half4(LUTTEX.rgb,1.0);
+            gradedColorTest = linear_to_sRGB(gradedColorTest);
+            
+            //float3 srgbf = linear_to_sRGB(LUTTEX);
+            return half4(gradedColorTest,1.0);
+            //return half4(0.5,0.5,1.0,1.0);
+            //float3 finalColor = Gamma22ToLinear(LUTTEX.rgb);
+            float3 finalColor = pow(LUTTEX.rgb,2.2);
+            float3 testCorrection = float3(240/255.0,0,0);
+             //testCorrection = pow(testCorrection,2.2);
+            //return half4(LUTTEX.rgb,1.0);
             //float3 colortest = float3(0.5,0.5,1);
             
             //colortest = NeutralTonemap(colorLinear);
