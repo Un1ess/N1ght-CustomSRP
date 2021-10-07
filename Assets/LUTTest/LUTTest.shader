@@ -2,7 +2,7 @@
 {
     Properties
     {
-        _BaseMap("MainTex",2D)="white"{}
+        _MainTex("MainTex",2D)="white"{}
     }
     
     
@@ -37,7 +37,7 @@
         TEXTURE2D(_CurveRed);
         TEXTURE2D(_CurveGreen);
         TEXTURE2D(_CurveBlue);
-        TEXTURE2D_HALF(_BaseMap);    SAMPLER(sampler_BaseMap);
+        TEXTURE2D_FLOAT(_MainTex);    SAMPLER(sampler_MainTex);
     
         TEXTURE2D(_CurveHueVsHue);
         TEXTURE2D(_CurveHueVsSat);
@@ -202,36 +202,16 @@
             float3 TonemapColor = Tonemap(colorLinear);
             
             //float mr = EvaluateCurve(_CurveMaster, colorLinear.r);
-            float3 LUTTEX = SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.uv).rgb;
+            float3 LUTTEX = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,input.uv).rgb;
             
             float3 gradedColorTest = ColorGrade(LUTTEX);
             gradedColorTest = Tonemap(gradedColorTest);
             gradedColorTest = linear_to_sRGB(gradedColorTest);
             
             //float3 srgbf = linear_to_sRGB(LUTTEX);
-            return half4(gradedColorTest,1.0);
             //return half4(0.5,0.5,1.0,1.0);
-            //float3 finalColor = Gamma22ToLinear(LUTTEX.rgb);
-            float3 finalColor = pow(LUTTEX.rgb,2.2);
-            float3 testCorrection = float3(240/255.0,0,0);
-             //testCorrection = pow(testCorrection,2.2);
-            //return half4(LUTTEX.rgb,1.0);
-            //float3 colortest = float3(0.5,0.5,1);
+            return half4(gradedColorTest,1.0);
             
-            //colortest = NeutralTonemap(colorLinear);
-            // colortest = LinearToSRGB(colorLinear);
-            // float3 colortest2 = Gamma22ToLinear(colorLinear);
-            // float3 colortest3 = Gamma22ToLinear(colorLutSpace);
-
-            // #if _TONEMAP_FXT_NEUTRAL
-            // {
-            //     return half4(1,0,0,1);
-            // }
-            // #elif _TONEMAP_FXT_ACES
-            // {
-            //      return half4(0,0,1,1);
-            // }
-            // #endif
             
             
             return float4(gradedColor, 1.0);
