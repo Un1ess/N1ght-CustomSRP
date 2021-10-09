@@ -53,6 +53,7 @@ public static class Texture2DExtension
             aWriter.Write(c.g);
             aWriter.Write(c.b);
         }
+        
     }
     private static void ReadARGBFloatUncompressed(Texture2D aTex, System.IO.BinaryReader aReader)
     {
@@ -71,6 +72,7 @@ public static class Texture2DExtension
         aTex.Resize(w, h);
         aTex.SetPixels(colors);
         aTex.Apply();
+        Debug.Log("11111");
     }
     #endregion ARGBFloat
     #region ARGBUShort
@@ -116,6 +118,7 @@ public static class Texture2DExtension
     {
         using (var writer = new System.IO.BinaryWriter(aStream))
         {
+           
             if (aFormat == DataFormat.ARGBFloat)
                 SaveARGBFloatUncompressed(aTex, writer);
             else if (aFormat == DataFormat.ARGBUShort)
@@ -124,8 +127,10 @@ public static class Texture2DExtension
     }
     public static void ReadUncompressed(this Texture2D aTex, System.IO.Stream aStream)
     {
+        
         using (var reader = new System.IO.BinaryReader(aStream))
         {
+            Debug.Log("11111");
             var format = (DataFormat)reader.ReadInt32();
             if (format == DataFormat.ARGBFloat)
                 ReadARGBFloatUncompressed(aTex, reader);

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Experimental.Rendering;
 
-[ExecuteInEditMode]
+
 public class SaveTex : MonoBehaviour
 {
     
@@ -18,7 +19,7 @@ public class SaveTex : MonoBehaviour
     public Texture tex;
     public bool enableSave = false;
 
-    public Texture m_Tex;
+    public Texture2D newTexture2D;
     public enum SaveFile
     {
         PNG,
@@ -29,14 +30,39 @@ public class SaveTex : MonoBehaviour
     void Start()
     {
         //tex.graphicsFormat = GraphicsFormat.R32G32B32_SFloat;
-        m_Tex = new Texture2D(tex.width, tex.height, TextureFormat.RGBAFloat, false);
+        //m_Tex = new Texture2D(tex.width, tex.height, TextureFormat.RGBAFloat, false);
+        newTexture2D = new Texture2D(4096, 64, TextureFormat.RGBAFloat, false);
+        newTexture2D.filterMode = FilterMode.Point;
+        newTexture2D.wrapMode = TextureWrapMode.Clamp;
+        float  distanceR = (float)(1.0 / 63.0);
+        Color customColorForLut = Color.white;
+        for (int height = 0; height < 64; height++)
+        {
+            for (int width = 0; width < 4096; width++)
+            {
+                customColorForLut.r = (width%64) * distanceR;
+                customColorForLut.g = Mathf.Floor((float) (width / 64.0)) * distanceR;
+                customColorForLut.b = (63 - height) * distanceR;
+                newTexture2D.SetPixel(width,height,customColorForLut);
+            }
+
+            Debug.Log("VAR");
+        }
         
-        Debug.Log("m_Tex.Format: "+m_Tex.graphicsFormat);
+        newTexture2D.Apply();
+        
+        string filename = Application.dataPath + "/" + "SaveTexFromShader" + "/" + "linear_to_linear.exr";
+        //newTexture2D.ReadUncompressed(filename);
+        //var file = System.IO.File.OpenRead(filename);
+        //Debug.Log(filename);
+        
+        Debug.Log("newTexture2D.Format: "+newTexture2D.graphicsFormat);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("tex.format: "+tex.graphicsFormat);
         if (enableSave)
         {
             enableSave = false;
@@ -52,15 +78,17 @@ public class SaveTex : MonoBehaviour
                     SaveRenderTextureToEXR16(tex, mat, contents, pictureName);
                     break;
                 case SaveFile.EXR32:
-                    SaveRenderTextureToEXR32(tex, mat, contents, pictureName);
+                    SaveRenderTextureToEXR32(newTexture2D, mat, contents, pictureName);
                     break;
                     
             }
+            AssetDatabase.Refresh();
         }
 
         bool supportOrNot =  SystemInfo.SupportsTextureFormat(TextureFormat.RGBAFloat);
-        //Debug.Log(supportOrNot);
-        Debug.Log(tex.graphicsFormat);
+        Debug.Log(supportOrNot);
+        
+        //Debug.Log(tex.graphicsFormat);
 
     }
     public bool SaveRenderTextureToPNG(Texture inputTex,Material outputMaterial, string contents, string pictureName)

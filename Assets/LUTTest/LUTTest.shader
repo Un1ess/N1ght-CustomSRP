@@ -187,6 +187,17 @@
             return colorLinear;
         }
 
+        // Returns the default value for a given position on a 2D strip-format color lookup table
+        // params = (lut_height, 0.5 / lut_width, 0.5 / lut_height, lut_height / lut_height - 1)
+        real3 GetSPLut(float2 uv, float4 params)
+        {
+            uv -= params.yz;
+            real3 color;
+            color.r = frac(uv.x * params.x);
+            color.b = uv.x - color.r / params.x;
+            color.g = uv.y;
+            return color * params.w;
+        }
         float4 Frag(Varyings input) : SV_Target
         {
             // Lut space
@@ -195,6 +206,7 @@
             // darks
             //float3 colorLutSpace = GetLutStripValue(input.uv, _Lut_Params);
             float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024,0.5/32,32/31));
+            float3 colorLutSpace2 = GetLutStripValue(input.uv, float4(64,0.5/4096,0.5/64,64/63));
             float3 colorLinear = LogCToLinear(colorLutSpace);
             // Color grade & tonemap
             float3 gradedColor = ColorGrade(colorLutSpace);
@@ -207,9 +219,20 @@
             float3 gradedColorTest = ColorGrade(LUTTEX);
             gradedColorTest = Tonemap(gradedColorTest);
             gradedColorTest = linear_to_sRGB(gradedColorTest);
-            
+            //gradedColorTest = LinearToLogC(gradedColorTest);
             //float3 srgbf = linear_to_sRGB(LUTTEX);
             //return half4(0.5,0.5,1.0,1.0);
+            float2 lutUV = input.uv;
+            float2 UVoffset = float2(0.5/64,0.5/64);
+            lutUV -= UVoffset;
+            float3 color;
+            //color.r = frac(input.uv.x * 32);
+            color.r = lutUV;
+            color.g = 0;
+            color.b = 0;
+            color *= 64/63;
+            //color.r -= 2/255.0;
+            //return half4(color,1.0);
             return half4(gradedColorTest,1.0);
             
             
