@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: FXT_LUTTest
   m_Shader: {fileID: 4800000, guid: b401cf1b7acc9594f9dbfd582938b36b, type: 3}
-  m_ShaderKeywords: _TONEMAP_FXT_NEUTRAL
+  m_ShaderKeywords: _TONEMAP_FXT_ACES
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

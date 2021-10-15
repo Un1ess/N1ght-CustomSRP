@@ -14,7 +14,7 @@
         
         CBUFFER_START(UnityPerMaterial)
         float4 _CurrTex_TexelSize;
-        
+        float3 _DeltaPosWS;
         CBUFFER_END
         
         TEXTURE2D(_PrevTex);
@@ -65,9 +65,14 @@
                 float pBottom = SAMPLE_TEXTURE2D(_CurrTex,sampler_CurrTex,uv - unit.zy).x;//下
                 float pLeft = SAMPLE_TEXTURE2D(_CurrTex,sampler_CurrTex,uv - unit.xz).x;//左
                 float pRight = SAMPLE_TEXTURE2D(_CurrTex,sampler_CurrTex,uv + unit.xz).x;//右
-\
+
+                float3 offsetTerm = _DeltaPosWS.xyz/25.0 * 0.5;
                 float prevTex = SAMPLE_TEXTURE2D(_PrevTex,sampler_PrevTex,uv).x;
+                float currTex = SAMPLE_TEXTURE2D(_CurrTex,sampler_CurrTex,uv +offsetTerm.xz).x;
                 float result = (pUp + pBottom + pLeft + pRight)/2 - prevTex;
+                //防止边缘采样出错 
+                float cond2 = step(abs(i.uv.x - 0.5), 0.499) * step(abs(i.uv.y - 0.5), 0.499);
+                result = lerp(0,result,cond2);
                 result *= 0.96;
                 return half4(result.xxx,1.0);
             }
