@@ -60,6 +60,7 @@
                 // sample the texture
                 half4 col = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, i.uv);
                 col *= _BaseColor;
+                half testFrac = frac(-1.5);
                 return col;
             }
             ENDHLSL

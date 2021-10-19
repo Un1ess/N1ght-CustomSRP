@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 namespace NightCustomRenderPipeline
 {
-    public class NightCameraRenderer
+    public partial class NightCameraRenderer
     {
         private ScriptableRenderContext context;
         private Camera camera;
@@ -17,6 +17,7 @@ namespace NightCustomRenderPipeline
         static ShaderTagId nightCustomRPShaderTagId = new ShaderTagId("NightCustomRPForward");
         //unity shader pass中tag 若不写LightMode 则默认的Lightmode为SRPDefaultUnlit
         static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
+        static ShaderTagId universalForwardShaderTagId = new ShaderTagId("UniversalForward");
         
         /// <summary>
         /// NightCameraRender 公有构造函数 构造函数无需返回值
@@ -31,12 +32,16 @@ namespace NightCustomRenderPipeline
             this.context = context;
             this.camera = camera;
 
+            PrepareBuffer();
+            PrepareForSceneWindow();
             if (!Cull())
             {
                 return;
             }
             Setup();
             DrawVisibleGeometry();
+            DrawUnsupportedShaders();
+            DrawGizmos();
             Submit();
         }
         void Setup() 
@@ -49,25 +54,44 @@ namespace NightCustomRenderPipeline
             cmd.ClearRenderTarget(true, true, Color.clear);
             
             //Begin Our own Profile Sample
-            cmd.BeginSample(cmdBufferName);
+            cmd.BeginSample(SampleName);
             ExecuteCommandBuffer();
             
         }
         private void DrawVisibleGeometry()
         {
-            SortingSettings sortingSettings = new SortingSettings(camera);
+
+            //CommonOpaque时 绘制不透明物体不一定是从前向后
+            SortingSettings sortingSettings = new SortingSettings(camera) {criteria = SortingCriteria.CommonOpaque};
             DrawingSettings drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings);
-            drawingSettings.SetShaderPassName(1,nightCustomRPShaderTagId);
+            //drawingSettings.SetShaderPassName(1,unlitShaderTagId);
             FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
 
             //Debug.Log(drawingSettings.GetShaderPassName(0).name.ToString());
             context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
+            
             context.DrawSkybox(camera);
+            //CommonTransparent 绘制透明物体一定是从后向前
+            sortingSettings.criteria = SortingCriteria.CommonTransparent;
+            drawingSettings.sortingSettings = sortingSettings;
+            filteringSettings.renderQueueRange = RenderQueueRange.transparent;
+            context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
+            
         }
+        /// <summary>
+        /// 使用ErrorShader(return half4(1,0,1,1))-->绘制默认管线下的Shader
+        /// </summary>
+        partial void DrawUnsupportedShaders ();//在这里声明 但在partial class内写具体实现方法
+        
+        partial void DrawGizmos ();
+        
+        partial void PrepareForSceneWindow ();
+
+        partial void PrepareBuffer();
         private void Submit()
         {
             //End Our own Profile Sample
-            cmd.EndSample(cmdBufferName);
+            cmd.EndSample(SampleName);
             ExecuteCommandBuffer();
             context.Submit();
         }

@@ -104,7 +104,7 @@
                 // sample the texture
                 half4 col = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, i.uv);
                 col *= _BaseColor;
-                return half4(1,0,1,1);
+                return half4(0,0,1,1);
             }
             ENDHLSL
         }
