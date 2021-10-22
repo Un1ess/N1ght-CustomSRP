@@ -206,7 +206,7 @@
             // darks
             //float3 colorLutSpace = GetLutStripValue(input.uv, _Lut_Params);
             float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024,0.5/32,32/31));
-            float3 colorLutSpace2 = GetLutStripValue(input.uv, float4(64,0.5/4096,0.5/64,64/63));
+            float3 colorLutSpace2 = GetLutStripValue(input.uv, float4(64,0.5/4096,0.5/64,64.0/63.0));
             float3 colorLinear = LogCToLinear(colorLutSpace);
             // Color grade & tonemap
             float3 gradedColor = ColorGrade(colorLutSpace);
@@ -214,10 +214,12 @@
             float3 TonemapColor = Tonemap(colorLinear);
             
             //float mr = EvaluateCurve(_CurveMaster, colorLinear.r);
+            //============================================================
             float3 LUTTEX = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,input.uv).rgb;
-            
+            //LUTTEX = LogCToLinear(LUTTEX);
             float3 gradedColorTest = ColorGrade(LUTTEX);
             gradedColorTest = Tonemap(gradedColorTest);
+            //gradedColorTest = LinearToLogC(gradedColorTest);
             gradedColorTest = linear_to_sRGB(gradedColorTest);
             //gradedColorTest = LinearToLogC(gradedColorTest);
             //float3 srgbf = linear_to_sRGB(LUTTEX);
@@ -227,13 +229,16 @@
             lutUV -= UVoffset;
             float3 color;
             //color.r = frac(input.uv.x * 32);
-            color.r = lutUV;
+            color.r = lutUV.x;
             color.g = 0;
-            color.b = 0;
-            color *= 64/63;
+            color.b = lutUV.y;
+            //color = color * 64.0/63.0;
+            //color *= 64.0/63.0;
+            //color *= 64/63;
+            color *= 64.0/63;
             //color.r -= 2/255.0;
             //return half4(color,1.0);
-            return half4(gradedColorTest,1.0);
+            return half4(color,1.0);
             
             
             

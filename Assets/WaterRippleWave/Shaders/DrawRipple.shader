@@ -55,7 +55,7 @@
             {
                 v2f o;
                 VertexPositionInputs position_inputs = GetVertexPositionInputs(v.vertex.xyz);
-                o.posWS.xz = (v.uv * 2 - 1) * 25;
+                o.posWS.xz = (v.uv * 2 - 1) * _Size;
                 o.posWS.y = position_inputs.positionWS.y;
                 o.posCS = position_inputs.positionCS;
                 o.posWS2 = position_inputs.positionWS;
@@ -106,14 +106,20 @@
                 //-----偏移变体
                 // float height = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex_linear_clamp,
                 //     i.uv + offsetTerm.xz).r;
-                // float JunyuDis = max(0,_Radius - length(i.posWS.xz - 0));
+                // float distanceWS = max(0,_Radius - length(i.posWS.xz - 0));
                 //-----WorldSpace变体
                 float height = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex_linear_clamp,
-                    i.uv).r;
-                float JunyuDis = max(0,_Radius - length(i.posWS.xz - _PosWS.xz));
-                if(JunyuDis > 0)
+                    i.uv + offsetTerm.xz).r;
+                float distanceWS = max(0,_Radius - length(i.posWS.xz - 0));
+                //float distanceWS = max(0,0.25 - length(uv - half2(0.5,0.5)));
+                float2 _posScaled = (_PosWS.xz /25 + 1)*0.5;
+                float _RadiusScaled = (_PosUV.z/ 25 )*0.5;
+                //float distanceWS = max(0,_RadiusScaled - length(uv - _posScaled)) *3;
+                if(distanceWS > 0)
                 {
-                    height = max(JunyuDis, height);
+                    height = max(distanceWS, height);
+                    //height = distanceWS + height;
+                    
                 }
                 //防止边缘采样出错 
                 height = lerp(0,height,cond);

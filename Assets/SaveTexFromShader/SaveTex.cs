@@ -19,6 +19,7 @@ public class SaveTex : MonoBehaviour
     public Texture tex;
     public bool enableSave = false;
 
+    public bool useNewTex2d = true;
     public Texture2D newTexture2D;
     public enum SaveFile
     {
@@ -45,8 +46,6 @@ public class SaveTex : MonoBehaviour
                 customColorForLut.b = (63 - height) * distanceR;
                 newTexture2D.SetPixel(width,height,customColorForLut);
             }
-
-            Debug.Log("VAR");
         }
         
         newTexture2D.Apply();
@@ -62,6 +61,10 @@ public class SaveTex : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float mathr = 64 / 64 - 1;
+        Debug.Log(mathr);
+        float testColor = 0.5f;
+        testColor *= (float)(64.0 / 63.0);
         Debug.Log("tex.format: "+tex.graphicsFormat);
         if (enableSave)
         {
@@ -78,7 +81,15 @@ public class SaveTex : MonoBehaviour
                     SaveRenderTextureToEXR16(tex, mat, contents, pictureName);
                     break;
                 case SaveFile.EXR32:
-                    SaveRenderTextureToEXR32(newTexture2D, mat, contents, pictureName);
+                    if (useNewTex2d)
+                    {
+                        SaveRenderTextureToEXR32(newTexture2D, mat, contents, pictureName);
+                    }
+                    else
+                    {
+                        SaveRenderTextureToEXR32(tex, mat, contents, pictureName);
+                    }
+                    
                     break;
                     
             }

@@ -18,6 +18,7 @@
         float4 _MainTex_ST;
         half4 _BaseColor;
         float3 _MainTriggerPosWS;
+        float _Size;
         CBUFFER_END
         
         TEXTURE2D(_MainTex);    //sampler2D _MainTex;
@@ -62,7 +63,8 @@
             {
                 // sample the texture
                 float2 center = float2(10,10);
-                float2 rippleUV = (i.posWS.xz -  _MainTriggerPosWS.xz)/ 25 *0.5 +0.5;
+                //float2 rippleUV = (i.posWS.xz -  _MainTriggerPosWS.xz)/ 25 *0.5 +0.5;
+                float2 rippleUV = (i.posWS.xz -  0)/ _Size *0.5 +0.5;
                 half4 col = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, rippleUV);
                 //half4 col = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex, i.uv);
                 col *= _BaseColor;

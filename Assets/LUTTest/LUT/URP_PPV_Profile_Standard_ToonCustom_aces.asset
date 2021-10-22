@@ -1,52 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6394523117010488772
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
-  m_Name: Bloom
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  threshold:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0
-  intensity:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0
-  scatter:
-    m_OverrideState: 1
-    m_Value: 0.7
-    min: 0
-    max: 1
-  clamp:
-    m_OverrideState: 1
-    m_Value: 5
-    min: 0
-  tint:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
-  highQualityFiltering:
-    m_OverrideState: 1
-    m_Value: 1
-  dirtTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-  dirtIntensity:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
 --- !u!114 &-5152916522835770318
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -130,6 +83,29 @@ MonoBehaviour:
     m_Value: 0
     min: -100
     max: 100
+--- !u!114 &-151309629757764817
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 0
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  gamma:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  gain:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,12 +121,12 @@ MonoBehaviour:
   components:
   - {fileID: 418777255856235962}
   - {fileID: 7044814660189427479}
-  - {fileID: -6394523117010488772}
   - {fileID: -4705440288280240433}
   - {fileID: 3839554762904484810}
   - {fileID: -5152916522835770318}
-  - {fileID: 3036827707442700830}
-  - {fileID: 6339676748456757072}
+  - {fileID: -151309629757764817}
+  - {fileID: 876904136522565720}
+  - {fileID: 3942252333480146293}
 --- !u!114 &418777255856235962
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -189,7 +165,7 @@ MonoBehaviour:
     m_Value: 15
     min: -100
     max: 100
---- !u!114 &3036827707442700830
+--- !u!114 &876904136522565720
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,19 +174,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e021b4c809a781e468c2988c016ebbea, type: 3}
-  m_Name: ColorLookup
+  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
+  m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
   active: 0
   m_AdvancedMode: 0
-  texture:
+  shadows:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
-  contribution:
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  midtones:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  highlights:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  shadowsStart:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  shadowsEnd:
+    m_OverrideState: 0
+    m_Value: 0.3
+    min: 0
+  highlightsStart:
+    m_OverrideState: 0
+    m_Value: 0.55
+    min: 0
+  highlightsEnd:
     m_OverrideState: 0
     m_Value: 1
     min: 0
-    max: 1
 --- !u!114 &3839554762904484810
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -228,142 +221,7 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
-  LutPassEnable:
-    m_OverrideState: 0
-    m_Value: 0
-  toneAceToePosition:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  toneAceToeStrength:
-    m_OverrideState: 0
-    m_Value: 0.485
-  toneAceToeLift:
-    m_OverrideState: 0
-    m_Value: 0.715
-  toneAceShootAngle:
-    m_OverrideState: 0
-    m_Value: 63.4
-  toneAceShootLength:
-    m_OverrideState: 0
-    m_Value: 0.1
-  toneAceShoulderStrength:
-    m_OverrideState: 0
-    m_Value: 0.9
-  toneAceShoulderLift:
-    m_OverrideState: 0
-    m_Value: 0.983
-  toneAceWhitePoint:
-    m_OverrideState: 0
-    m_Value: {x: 5, y: 1}
-  toneAceCurveGamma:
-    m_OverrideState: 0
-    m_Value: 1
-  toneAceWhiteResult:
-    m_OverrideState: 1
-    m_Value: 3.5199971
-  toneAceResult:
-    m_OverrideState: 1
-    m_Value: {x: 3.1922565, y: 2.186635, z: 3.0714557, w: 2.2758183}
-  fitConfig:
-    fitRange: {x: 0, y: 5}
-    initSampleCount: 1000
-    estExtraSampleCount: 40
-    maxIterationTime: 0
-    drevWeight: 1
-  _tmpX:
-  - 0
-  - 0.065
-  - 0.085
-  - 0.1
-  - 0.115
-  - 0.13
-  - 0.145
-  - 0.16
-  - 0.17500000000000002
-  - 0.19
-  - 0.20500000000000002
-  - 0.22
-  - 0.23500000000000001
-  - 0.25
-  - 0.27
-  - 0.29
-  - 0.31
-  - 0.33
-  - 0.35000000000000003
-  - 0.375
-  - 0.4
-  - 0.425
-  - 0.455
-  - 0.485
-  - 0.52
-  - 0.56
-  - 0.605
-  - 0.655
-  - 0.715
-  - 0.785
-  - 0.87
-  - 0.98
-  - 1.125
-  - 1.335
-  - 1.675
-  - 2.4250000000000003
-  _tmpY:
-  - 0
-  - 0.1291719377040863
-  - 0.16717691719532013
-  - 0.19476842880249023
-  - 0.22154423594474792
-  - 0.24748185276985168
-  - 0.2725658118724823
-  - 0.2967883348464966
-  - 0.32014769315719604
-  - 0.34264901280403137
-  - 0.3643026351928711
-  - 0.3851229250431061
-  - 0.40512868762016296
-  - 0.4243415296077728
-  - 0.4487674832344055
-  - 0.4718889594078064
-  - 0.49377089738845825
-  - 0.5144800543785095
-  - 0.53408282995224
-  - 0.5571295022964478
-  - 0.5786718726158142
-  - 0.598825991153717
-  - 0.6213306188583374
-  - 0.6421647667884827
-  - 0.6645672917366028
-  - 0.6879287362098694
-  - 0.7116940021514893
-  - 0.7353833913803101
-  - 0.7605802416801453
-  - 0.7862309217453003
-  - 0.8129246830940247
-  - 0.841694712638855
-  - 0.8720201253890991
-  - 0.9049733877182007
-  - 0.9405711889266968
-  - 0.9793015122413635
-  fitWhitePoint: 3.5199971
-  toneCurveToeStrength:
-    m_OverrideState: 0
-    m_Value: 0
-  toneCurveToeLength:
-    m_OverrideState: 0
-    m_Value: 0.5
-  toneCurveShoulderStrength:
-    m_OverrideState: 0
-    m_Value: 0
-  toneCurveShoulderLength:
-    m_OverrideState: 0
-    m_Value: 0.5
-  toneCurveShoulderAngle:
-    m_OverrideState: 0
-    m_Value: 0
-  toneCurveGamma:
-    m_OverrideState: 0
-    m_Value: 1
---- !u!114 &6339676748456757072
+--- !u!114 &3942252333480146293
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,59 +230,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
+  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
+  m_Name: SplitToning
   m_EditorClassIdentifier: 
   active: 0
   m_AdvancedMode: 0
-  mode:
-    m_OverrideState: 1
-    m_Value: 1
-  gaussianStart:
-    m_OverrideState: 1
-    m_Value: 30
-    min: 0
-  gaussianEnd:
-    m_OverrideState: 1
-    m_Value: 100
-    min: 0
-  gaussianMaxRadius:
+  shadows:
     m_OverrideState: 0
-    m_Value: 1
-    min: 0.5
-    max: 1.5
-  highQualitySampling:
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  highlights:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  balance:
     m_OverrideState: 0
     m_Value: 0
-  focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
-    min: 0.1
-  aperture:
-    m_OverrideState: 0
-    m_Value: 5.6
-    min: 1
-    max: 32
-  focalLength:
-    m_OverrideState: 0
-    m_Value: 50
-    min: 1
-    max: 300
-  bladeCount:
-    m_OverrideState: 0
-    m_Value: 5
-    min: 3
-    max: 9
-  bladeCurvature:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-    max: 1
-  bladeRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: -180
-    max: 180
+    min: -100
+    max: 100
 --- !u!114 &7044814660189427479
 MonoBehaviour:
   m_ObjectHideFlags: 3

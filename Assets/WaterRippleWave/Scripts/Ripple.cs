@@ -16,6 +16,7 @@ public class Ripple : MonoBehaviour
     public Shader drawHeightShader;
     private Material drawRippleMat;
     private Material drawHeightMat;
+    public Material showWSRT;
     public LayerMask hitLayer = 5;
     public float radius = 0.1f;
 
@@ -24,8 +25,10 @@ public class Ripple : MonoBehaviour
     private Vector3 lastObjectPos;
 
     public float ScaleMapping = 0.5f;
-    
+    public float Size = 25;
     public bool isOpenWave = false;
+    
+    private readonly int _size = Shader.PropertyToID("_Size");
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +95,8 @@ public class Ripple : MonoBehaviour
     void Update()
     {
         drawRippleMat.SetFloat("_ScaleMapping",ScaleMapping);
+        drawRippleMat.SetFloat(_size,Size);
+        showWSRT.SetFloat(_size,Size);
         if (Input.GetMouseButton(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -108,7 +113,7 @@ public class Ripple : MonoBehaviour
                     // drawRippleMat.SetVector("_PosWS",new Vector4(
                     //     hitinfo.point.x,hitinfo.point.y,hitinfo.point.z,0));
                     Debug.Log("WS hit.x: "+hitinfo.point.x );
-                    CurrRT(hitinfo.textureCoord.x,hitinfo.textureCoord.y,radius);
+                    //CurrRT(hitinfo.textureCoord.x,hitinfo.textureCoord.y,radius);
 
                     lastMousePos = hitinfo.point;
                 }
@@ -162,4 +167,6 @@ public class Ripple : MonoBehaviour
         tempRenderTexture2.Release();
         Debug.Log("结束");
     }
+
+    
 }
