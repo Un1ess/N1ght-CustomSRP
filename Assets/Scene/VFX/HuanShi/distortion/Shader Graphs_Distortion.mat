@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_Distortion
+  m_Shader: {fileID: -6465566751694194690, guid: a0d10e84809d9694fa43c7b10eb854a6,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_0450746fb3c948cd9791010e21f95b02:
+        m_Texture: {fileID: 2800000, guid: b90c76f51dafee942a0d9647484e75f5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_2662ab9578354e0f8bed2562e97bfbf0:
+        m_Texture: {fileID: 2800000, guid: 2ee5acaf08212ae439782fc359eb2527, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_65c10eeddd4f4fffb643bf6a9283af02:
+        m_Texture: {fileID: 2800000, guid: 499fab7c89151f84185803176a0c1352, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_7cde2e3b637a4d6e8d4bb74dff734b31:
+        m_Texture: {fileID: 2800000, guid: 421207455ed89d9449ce2369b0342718, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PrevColorTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PrevTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_0d9efe0aeb2b4d9fa7b682b2205b5343: 0.554
+    - Vector1_660c85e4640a40af96632a51d5ef466d: 0.5
+    - Vector1_f14df823b8cc4ee9bc6b79ec10ae2e30: 0.2
+    m_Colors:
+    - Vector2_e4d416f7e3b949b383e0e94a0644bc73: {r: 0, g: -8.13, b: 0, a: 0}
