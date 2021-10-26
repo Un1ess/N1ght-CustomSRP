@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 
 namespace NightCustomRenderPipeline
@@ -57,8 +58,14 @@ namespace NightCustomRenderPipeline
         }
         
         string SampleName { get; set; }
+        
+        /// <summary>
+        /// 设置buffer名字
+        /// </summary>
         partial void PrepareBuffer () {
+            Profiler.BeginSample("EditorOnly");
             cmd.name = SampleName = camera.name;
+            Profiler.EndSample();
         }
         
         #else

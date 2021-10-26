@@ -48,16 +48,23 @@ namespace NightCustomRenderPipeline
         {
             //Set Matrix_VP
             context.SetupCameraProperties(camera);
+
+            CameraClearFlags clearFlags = camera.clearFlags;
             
             //ClearTarget方法本身就已经包含在cmd.name 中的一个Sample了
             //ClearTarget方法若放在 SetupCameraProperties之前 则会调用为DrawGL 它不是最有效的清屏方法
-            cmd.ClearRenderTarget(true, true, Color.clear);
+            cmd.ClearRenderTarget(clearFlags <= CameraClearFlags.Depth,
+                clearFlags == CameraClearFlags.Color,
+                clearFlags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
             
             //Begin Our own Profile Sample
             cmd.BeginSample(SampleName);
             ExecuteCommandBuffer();
             
         }
+        /// <summary>
+        /// 先绘制不透明物体，再绘制天空盒，最后绘制透明物体
+        /// </summary>
         private void DrawVisibleGeometry()
         {
 
@@ -70,7 +77,9 @@ namespace NightCustomRenderPipeline
             //Debug.Log(drawingSettings.GetShaderPassName(0).name.ToString());
             context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
             
+            //clearFlags被设置为Skybox的时候才会绘制Skybox
             context.DrawSkybox(camera);
+            
             //CommonTransparent 绘制透明物体一定是从后向前
             sortingSettings.criteria = SortingCriteria.CommonTransparent;
             drawingSettings.sortingSettings = sortingSettings;
@@ -92,6 +101,7 @@ namespace NightCustomRenderPipeline
         {
             //End Our own Profile Sample
             cmd.EndSample(SampleName);
+            //new ProfilingScope()
             ExecuteCommandBuffer();
             context.Submit();
         }
