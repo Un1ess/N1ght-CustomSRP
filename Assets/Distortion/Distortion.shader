@@ -14,6 +14,7 @@
         _MaskTex("_MaskTex",2D) = "white"{}
         _MaskNoiseTex("_MaskNoiseTex",2D) = "white"{}
         _MaskNoiseTexTiling ("_MaskNoiseTexTiling", range(0.1,10)) = 1
+        _DepthZoomFactor("深度缩放",range(0.001,1)) = 0.1
     }
     SubShader
     {
@@ -33,6 +34,7 @@
         float _DistortionTexTiling;
         float _PrevTexWeight;
         float _MaskNoiseTexTiling;
+        float _DepthZoomFactor;
         CBUFFER_END
 
         TEXTURE2D(_PrevColorTex);
@@ -119,7 +121,7 @@
                 //mainTexUV *= maskTex;
                 //sample depth
                 float depthTex = SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, screenUV).r;
-                float depth = Linear01Depth(depthTex,_ZBufferParams/10.0);
+                float depth = Linear01Depth(depthTex,_ZBufferParams*_DepthZoomFactor);
                 
                 
                 half4 col = SAMPLE_TEXTURE2D(_CameraOpaqueTexture,sampler_CameraOpaqueTexture, mainTexUV);

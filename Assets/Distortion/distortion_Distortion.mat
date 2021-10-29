@@ -40,6 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _DepthZoomFactor: 0.034
     - _DistortInt: 1.17
     - _DistortNoiseWeight: 0.595
     - _DistortionTexTiling: 1.78
