@@ -71,7 +71,7 @@ namespace NightCustomRenderPipeline
             //CommonOpaque时 绘制不透明物体不一定是从前向后
             SortingSettings sortingSettings = new SortingSettings(camera) {criteria = SortingCriteria.CommonOpaque};
             DrawingSettings drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings);
-            //drawingSettings.SetShaderPassName(1,unlitShaderTagId);
+            // drawingSettings.SetShaderPassName(1,unlitShaderTagId);
             FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
 
             //Debug.Log(drawingSettings.GetShaderPassName(0).name.ToString());
