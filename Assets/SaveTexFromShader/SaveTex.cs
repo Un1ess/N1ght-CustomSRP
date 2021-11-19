@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 
 
 public class SaveTex : MonoBehaviour
@@ -136,7 +137,7 @@ public class SaveTex : MonoBehaviour
 
     {
         RenderTexture temp = RenderTexture.GetTemporary(inputTex.width, inputTex.height, 0, RenderTextureFormat.ARGBFloat);
-
+        
         Graphics.Blit(inputTex, temp, outputMaterial);
         bool ret = SaveRenderTextureToEXR32(temp, contents,pictureName);
         

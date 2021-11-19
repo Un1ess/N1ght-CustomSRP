@@ -191,11 +191,12 @@
         // params = (lut_height, 0.5 / lut_width, 0.5 / lut_height, lut_height / lut_height - 1)
         real3 GetSPLut(float2 uv, float4 params)
         {
-            uv -= params.yz;
+            uv.x -= params.y;
+            uv.y += params.z;
             real3 color;
             color.r = frac(uv.x * params.x);
-            color.b = uv.x - color.r / params.x;
-            color.g = uv.y;
+            color.g = uv.x - color.r / params.x;
+            color.b = 1 - uv.y;
             return color * params.w;
         }
         float4 Frag(Varyings input) : SV_Target
@@ -205,8 +206,14 @@
             // (~58.85666) and is good enough to be stored in fp16 without losing precision in the
             // darks
             //float3 colorLutSpace = GetLutStripValue(input.uv, _Lut_Params);
-            float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024,0.5/32,32/31));
-            float3 colorLutSpace2 = GetLutStripValue(input.uv, float4(64,0.5/4096,0.5/64,64.0/63.0));
+            float3 colorLutSpace = GetLutStripValue(input.uv, float4(32,0.5/1024.0,0.5/32.0,32.0/31.0));
+            float3 colorLutSpace_cubeSize64 = GetSPLut(input.uv, float4(64,0.5/4096.0,0.5/64.0,64.0/63.0));
+            float3 colorLutSpace_cubeSize32 = GetSPLut(input.uv, float4(32,0.5/1024.0,0.5/32.0,32.0/31.0));
+            colorLutSpace_cubeSize32 = linear_to_sRGB(colorLutSpace_cubeSize32);
+
+            colorLutSpace_cubeSize64 = ColorGrade(colorLutSpace_cubeSize64);
+            colorLutSpace_cubeSize64 = Tonemap(colorLutSpace_cubeSize64);
+            colorLutSpace_cubeSize64 = linear_to_sRGB(colorLutSpace_cubeSize64);
             float3 colorLinear = LogCToLinear(colorLutSpace);
             // Color grade & tonemap
             float3 gradedColor = ColorGrade(colorLutSpace);
@@ -221,29 +228,10 @@
             gradedColorTest = Tonemap(gradedColorTest);
             //gradedColorTest = LinearToLogC(gradedColorTest);
             gradedColorTest = linear_to_sRGB(gradedColorTest);
-            //gradedColorTest = LinearToLogC(gradedColorTest);
-            //float3 srgbf = linear_to_sRGB(LUTTEX);
-            //return half4(0.5,0.5,1.0,1.0);
-            float2 lutUV = input.uv;
-            float2 UVoffset = float2(0.5/64,0.5/64);
-            lutUV -= UVoffset;
-            float3 color;
-            //color.r = frac(input.uv.x * 32);
-            color.r = lutUV.x;
-            color.g = 0;
-            color.b = lutUV.y;
-            //color = color * 64.0/63.0;
-            //color *= 64.0/63.0;
-            //color *= 64/63;
-            color *= 64.0/63;
-            //color.r -= 2/255.0;
-            //return half4(color,1.0);
-            return half4(color,1.0);
-            
-            
-            
-            return float4(gradedColor, 1.0);
-        }
+
+            return half4(colorLutSpace_cubeSize64,1.0);
+
+        } 
 
     ENDHLSL
 
