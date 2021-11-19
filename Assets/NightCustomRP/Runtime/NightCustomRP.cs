@@ -6,6 +6,12 @@ namespace NightCustomRenderPipeline
     public class NightCustomRP : RenderPipeline
     {
         private NightCameraRenderer _nightCameraRender = new NightCameraRenderer();
+
+        public NightCustomRP()
+        {
+            GraphicsSettings.useScriptableRenderPipelineBatching = true;
+        }
+
         protected override void Render(ScriptableRenderContext context, Camera[] cameras)
         {
             //每个摄像机的渲染是独立的 Independent
@@ -14,6 +20,7 @@ namespace NightCustomRenderPipeline
                 _nightCameraRender.Render(context,camera);
             }
         }
+        
     }
 }
 
