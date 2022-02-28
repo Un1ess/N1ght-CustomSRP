@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!121 &12100000
+Flare:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Scene001_Lens
+  m_FlareTexture: {fileID: 2800000, guid: 1040dadab4d09254c9594abdfccff010, type: 3}
+  m_TextureLayout: 0
+  m_Elements:
+  - m_ImageIndex: 0
+    m_Position: 0
+    m_Size: 0.5
+    m_Color: {r: 0.77873105, g: 0.8773585, b: 0.39315593, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 1
+    m_Position: 0.98
+    m_Size: 0.14
+    m_Color: {r: 0.8301887, g: 0.49155328, b: 0.21537916, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 2
+    m_Position: 0
+    m_Size: 0.32
+    m_Color: {r: 0.6792453, g: 0.47098613, b: 0.48569053, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 3
+    m_Position: 0.84
+    m_Size: 0.08
+    m_Color: {r: 0.6273585, g: 0.72712076, b: 1, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 4
+    m_Position: 0
+    m_Size: 0.18
+    m_Color: {r: 0.9150943, g: 0.15107687, b: 0.25107756, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 1
+    m_Position: 0.69
+    m_Size: 0.18
+    m_Color: {r: 0.75713235, g: 0.9137255, b: 0.15294115, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 0
+  - m_ImageIndex: 1
+    m_Position: 0.2
+    m_Size: 0.18
+    m_Color: {r: 0.6698113, g: 0.22432362, b: 0.2817317, a: 0}
+    m_UseLightColor: 1
+    m_Rotate: 0
+    m_Zoom: 1
+    m_Fade: 1
+  m_UseFog: 0

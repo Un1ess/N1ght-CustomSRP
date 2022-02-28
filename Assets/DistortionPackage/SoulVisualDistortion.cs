@@ -98,6 +98,14 @@ public class SoulVisualDistortion : ScriptableRendererFeature
                 _kawaseBlurMat = new Material(Shader.Find("SoulVisual/KawaseBlur"));
         }
 
+        /// <summary>
+        /// Custom Setup Function
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <param name="heightMask"></param>
+        /// <param name="heightMapCenterRange"></param>
+        /// <param name="heightMapDepth"></param>
         public void Setup(RenderTargetIdentifier source, RenderTargetIdentifier destination,
             Texture2D heightMask, Vector4 heightMapCenterRange, float heightMapDepth)
         {
@@ -159,6 +167,11 @@ public class SoulVisualDistortion : ScriptableRendererFeature
             float cosVal = (Mathf.Cos(_settings.directionalBlurAngle) * _settings.directionalBlurRadius * 0.05f) / _settings.directionalBlurIteration;
             Vector3 directionalBlurParams = new Vector3(_settings.directionalBlurIteration, sinVal, cosVal);
             _kawaseBlurMat.SetVector(_directionBlurParamsID,directionalBlurParams);
+        }
+
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
+            // ConfigureTarget(,);
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
